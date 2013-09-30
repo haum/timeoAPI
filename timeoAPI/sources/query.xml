@@ -1,0 +1,5 @@
+<query type="node">
+	<has-kv k="timeo"/>
+	<bbox-query n="48.2366" e="48.2366" s="48.2366" w="-0.1414"/>
+</query>
+<print/>
