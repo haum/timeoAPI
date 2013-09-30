@@ -1,0 +1,227 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>timeoAPI.sources.meta &mdash; timeoAPI 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="timeoAPI 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">timeoAPI 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for timeoAPI.sources.meta</h1><div class="highlight"><pre>
+<span class="c">#! /usr/bin/env python</span>
+<span class="c"># -*- coding:utf8 -*-</span>
+<span class="c">#</span>
+<span class="c"># meta.py</span>
+<span class="c">#</span>
+<span class="c"># Copyright © 2013 Mathieu Gaborit (matael) &lt;mathieu@matael.org&gt;</span>
+<span class="c">#</span>
+<span class="c">#</span>
+<span class="c"># Distributed under WTFPL terms</span>
+<span class="c">#</span>
+<span class="c">#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</span>
+<span class="c">#                    Version 2, December 2004</span>
+<span class="c">#</span>
+<span class="c"># Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt;</span>
+<span class="c">#</span>
+<span class="c"># Everyone is permitted to copy and distribute verbatim or modified</span>
+<span class="c"># copies of this license document, and changing it is allowed as long</span>
+<span class="c"># as the name is changed.</span>
+<span class="c">#</span>
+<span class="c">#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</span>
+<span class="c">#   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION</span>
+<span class="c">#</span>
+<span class="c">#  0. You just DO WHAT THE FUCK YOU WANT TO.</span>
+<span class="c">#</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Metadata for stations</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">timeoAPI.utils</span> <span class="kn">import</span> <span class="n">connect_db</span>
+
+<div class="viewcode-block" id="coords"><a class="viewcode-back" href="../../../dev_corner.html#timeoAPI.sources.meta.coords">[docs]</a><span class="k">def</span> <span class="nf">coords</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get coordinates for station</span>
+
+<span class="sd">    code -- station code</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">connect_db</span><span class="p">()</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT * FROM metadata WHERE code=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">),))</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">res</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s">&#39;code&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+</div>
+<div class="viewcode-block" id="properties"><a class="viewcode-back" href="../../../dev_corner.html#timeoAPI.sources.meta.properties">[docs]</a><span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get properties for station</span>
+
+<span class="sd">    code -- station code</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># TODO</span>
+
+    <span class="k">return</span> <span class="p">{}</span>
+
+</div>
+<div class="viewcode-block" id="MetaInitializer"><a class="viewcode-back" href="../../../dev_corner.html#timeoAPI.sources.meta.MetaInitializer">[docs]</a><span class="k">class</span> <span class="nc">MetaInitializer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializer for the metadata DB</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_file</span><span class="p">,</span> <span class="n">overpass_url</span><span class="o">=</span><span class="s">&quot;http://overpass-api.de/api/interpreter&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+
+<span class="sd">        db_file -- file to write to</span>
+<span class="sd">        overpass_url -- url to Overpass API interpreter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_file</span> <span class="o">=</span> <span class="n">db_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overpass_url</span> <span class="o">=</span> <span class="n">overpass_url</span>
+
+    <span class="k">def</span> <span class="nf">_get_conn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a cursor for DB</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_insert_to_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform real insert</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># prepare payload</span>
+        <span class="n">insert_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">_</span><span class="p">[</span><span class="s">&#39;properties&#39;</span><span class="p">][</span><span class="s">&#39;timeo&#39;</span><span class="p">],</span> <span class="n">_</span><span class="p">[</span><span class="s">&#39;geometry&#39;</span><span class="p">][</span><span class="s">&#39;coordinates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">_</span><span class="p">[</span><span class="s">&#39;geometry&#39;</span><span class="p">][</span><span class="s">&#39;coordinates&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span>
+                       <span class="n">_</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="s">&#39;features&#39;</span><span class="p">]]</span>
+
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conn</span><span class="p">()</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">insert_list</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO metadata(`code`, `lat`,`lon`) VALUES(?, ?, ?)&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">IntegrityError</span><span class="p">:</span> <span class="c"># code already added</span>
+                <span class="k">pass</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="MetaInitializer.from_file"><a class="viewcode-back" href="../../../dev_corner.html#timeoAPI.sources.meta.MetaInitializer.from_file">[docs]</a>    <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract data from file (json)</span>
+
+<span class="sd">        filename -- name of JSON file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s">&quot;File &quot;</span><span class="o">+</span><span class="n">filename</span><span class="o">+</span><span class="s">&quot; not found.&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">geodata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_insert_to_db</span><span class="p">(</span><span class="n">geodata</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MetaInitializer.from_overpass"><a class="viewcode-back" href="../../../dev_corner.html#timeoAPI.sources.meta.MetaInitializer.from_overpass">[docs]</a>    <span class="k">def</span> <span class="nf">from_overpass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract data from an Overpass request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">queryfile</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">overpass_url</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">f</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_insert_to_db</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">timeoAPI 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, HAUM.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

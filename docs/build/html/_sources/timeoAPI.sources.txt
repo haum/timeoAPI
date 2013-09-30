@@ -1,0 +1,12 @@
+sources Package
+===============
+
+:mod:`meta` Module
+------------------
+
+.. automodule:: timeoAPI.sources.meta
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
+

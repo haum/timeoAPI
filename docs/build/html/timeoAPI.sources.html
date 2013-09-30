@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sources Package &mdash; timeoAPI 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="timeoAPI 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="Developper Corner" href="dev_corner.html" />
+    <link rel="next" title="Todo List" href="todo.html" />
+    <link rel="prev" title="sources Package" href="" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="todo.html" title="Todo List"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="#" title="sources Package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">timeoAPI 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="dev_corner.html" accesskey="U">Developper Corner</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sources-package">
+<h1>sources Package<a class="headerlink" href="#sources-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-timeoAPI.sources.meta">
+<span id="meta-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">meta</span></tt> Module<a class="headerlink" href="#module-timeoAPI.sources.meta" title="Permalink to this headline">¶</a></h2>
+<p>Metadata for stations</p>
+<dl class="class">
+<dt id="timeoAPI.sources.meta.MetaInitializer">
+<em class="property">class </em><tt class="descclassname">timeoAPI.sources.meta.</tt><tt class="descname">MetaInitializer</tt><big>(</big><em>db_file</em>, <em>overpass_url='http://overpass-api.de/api/interpreter'</em><big>)</big><a class="reference internal" href="_modules/timeoAPI/sources/meta.html#MetaInitializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#timeoAPI.sources.meta.MetaInitializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Initializer for the metadata DB</p>
+<dl class="function">
+<dt id="timeoAPI.sources.meta.MetaInitializer.from_file">
+<tt class="descname">from_file</tt><big>(</big><em>self</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/timeoAPI/sources/meta.html#MetaInitializer.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#timeoAPI.sources.meta.MetaInitializer.from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data from file (json)</p>
+<p>filename &#8211; name of JSON file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="timeoAPI.sources.meta.MetaInitializer.from_overpass">
+<tt class="descname">from_overpass</tt><big>(</big><em>self</em>, <em>queryfile</em><big>)</big><a class="reference internal" href="_modules/timeoAPI/sources/meta.html#MetaInitializer.from_overpass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#timeoAPI.sources.meta.MetaInitializer.from_overpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data from an Overpass request</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="timeoAPI.sources.meta.coords">
+<tt class="descclassname">timeoAPI.sources.meta.</tt><tt class="descname">coords</tt><big>(</big><em>code</em><big>)</big><a class="reference internal" href="_modules/timeoAPI/sources/meta.html#coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#timeoAPI.sources.meta.coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get coordinates for station</p>
+<p>code &#8211; station code</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="timeoAPI.sources.meta.properties">
+<tt class="descclassname">timeoAPI.sources.meta.</tt><tt class="descname">properties</tt><big>(</big><em>code</em><big>)</big><a class="reference internal" href="_modules/timeoAPI/sources/meta.html#properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#timeoAPI.sources.meta.properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get properties for station</p>
+<p>code &#8211; station code</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">sources Package</a><ul>
+<li><a class="reference internal" href="#module-timeoAPI.sources.meta"><tt class="docutils literal"><span class="pre">meta</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href=""
+                        title="previous chapter">sources Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="todo.html"
+                        title="next chapter">Todo List</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/timeoAPI.sources.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="todo.html" title="Todo List"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="#" title="sources Package"
+             >previous</a> |</li>
+        <li><a href="index.html">timeoAPI 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="dev_corner.html" >Developper Corner</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, HAUM.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

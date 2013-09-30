@@ -1,0 +1,46 @@
+timeoAPI Package
+================
+
+:mod:`timeoAPI` Package
+-----------------------
+
+.. automodule:: timeoAPI
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`settings` Module
+----------------------
+
+.. automodule:: timeoAPI.settings
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`utils` Module
+-------------------
+
+.. automodule:: timeoAPI.utils
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`views` Module
+-------------------
+
+.. automodule:: timeoAPI.views
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    timeoAPI.sources
+
