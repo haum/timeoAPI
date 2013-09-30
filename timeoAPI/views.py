@@ -30,7 +30,7 @@ from timeoAPI.utils import jsondump
 import timeoAPI.sources.meta as meta
 
 
-@app.route('/stations/<int:code>/<lignesens>', methods=['GET'])
+@app.route('/v1/stations/<int:code>/<lignesens>', methods=['GET'])
 def station_next(code, lignesens):
     t = Timeo()
     times = t.get_arret(lignesens, code)
@@ -45,38 +45,40 @@ def station_next(code, lignesens):
     })
 
 
-@app.route('/stations/<int:code>/meta/coords', methods=['GET'])
+@app.route('/v1/stations/<int:code>/coords', methods=['GET'])
 def station_coords(code):
     result = meta.coords(code)
     result['type'] = "station_coords"
     return jsondump(result)
 
 
-@app.route('/stations/<int:code>/meta/properties', methods=['GET'])
+@app.route('/v1/stations/<int:code>/properties', methods=['GET'])
 def station_properties(code):
     result = meta.properties(code)
     result['type'] = "station_properties"
     return jsondump(result)
 
 
-@app.route('/stations/<int:code>/meta/all', methods=['GET'])
+@app.route('/v1/stations/<int:code>/all', methods=['GET'])
 def station_allmeta(code):
     result = meta.properties(code)
     for k,v in meta.coords(code).items(): result[k] = v
     result['type'] = 'station_metadata'
     return jsondump(result)
 
-@app.route('/lines/all', methods=['GET'])
+@app.route('/v1/lines', methods=['GET'])
 def lines_all():
     t = Timeo()
-    result = t.get_lignes()
+    result = {}
     result['type'] = 'lines'
+    result['lines'] = t.get_lignes()
     return jsondump(result)
 
 
-@app.route('/lines/<lignesens>/stations', methods=['GET'])
-def lines_stations(linecode):
+@app.route('/v1/lines/<lignesens>', methods=['GET'])
+def lines_stations(lignesens):
     t = Timeo()
-    result = t.getall_arrets(lignesens)
+    result = {}
     result['type'] = 'line_stations'
+    result['stations'] = t.getall_arrets(lignesens)
     return jsondump(result)
