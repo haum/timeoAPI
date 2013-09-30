@@ -23,10 +23,9 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
-from flask import Flask
-app = Flask(__name__)
-
-app.config.from_object('timeoAPI.settings.DevelopmentConfig')
+from bottle import Bottle, debug
+app = Bottle(__name__)
+debug(mode=True)
 
 import timeoAPI.views
 

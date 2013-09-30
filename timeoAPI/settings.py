@@ -23,11 +23,8 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
-import os
-
-class DevelopmentConfig(object):
-    DEBUG = True
-    DATABASE_URI = "/home/matael/workspace/hackerspace/timeoAPI/timeoAPI/cache.db"
+DEBUG = True
+DATABASE_URI = "/home/matael/workspace/hackerspace/timeoAPI/timeoAPI/cache.db"
 
 
 
