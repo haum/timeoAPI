@@ -23,11 +23,14 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
-import sys
+import bottle
 
-from timeoAPI import app
+import timeoAPI.views
 
-app.run()
+application = bottle.default_app()
+bottle.debug(mode=True)
+
+application.run()
 
 
 

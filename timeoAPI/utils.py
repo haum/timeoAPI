@@ -30,7 +30,7 @@ Utilities
 import json
 import sqlite3
 
-from timeoAPI import app
+from timeoAPI.settings import DATABASE_URI
 
 def jsondump(obj):
     """
@@ -42,6 +42,6 @@ def jsondump(obj):
     return json.dumps(obj, separators=(',',':'))
 
 def connect_db():
-    return sqlite3.connect(app.config.get('DATABASE_URI'))
+    return sqlite3.connect(DATABASE_URI)
 
 
