@@ -44,6 +44,13 @@ def station_properties(code):
     result['type'] = "station_properties"
     return jsondump(result)
 
+@route('/v1/stations/<code:int>/all', 'GET')
+def station_allmeta(code):
+    result = meta.properties(code)
+    for k,v in meta.coords(code).items(): result[k] = v
+    result['type'] = 'station_metadata'
+    return jsondump(result)
+
 @route('/v1/stations/<code:int>/<lignesens>', 'GET')
 def station_next(code, lignesens):
     t = Timeo()
@@ -57,15 +64,6 @@ def station_next(code, lignesens):
         "direction": direction,
         "stops": times
     })
-
-
-
-@route('/v1/stations/<code:int>/all', 'GET')
-def station_allmeta(code):
-    result = meta.properties(code)
-    for k,v in meta.coords(code).items(): result[k] = v
-    result['type'] = 'station_metadata'
-    return jsondump(result)
 
 @route('/v1/lines', 'GET')
 def lines_all():
