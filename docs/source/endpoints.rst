@@ -159,11 +159,14 @@ Exemple de résultat :
 
 .. code:: javascript
 
+
     {
-        "type": "station_coords"
-        "code": "251",
-        "lat": "0.2048117",
-        "lon": "48.0241676",
+        "type": "station_coords",
+        "code": 251,
+        "coords": [
+            "0.2048117",
+            "48.0241676"
+        ]
     }
 
 Prochains passages
