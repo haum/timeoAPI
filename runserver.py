@@ -26,6 +26,7 @@
 import bottle
 
 import timeoAPI.views
+import timeoAPI.errors
 
 application = bottle.default_app()
 bottle.debug(mode=True)
