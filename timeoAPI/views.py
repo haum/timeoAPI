@@ -76,7 +76,7 @@ def lines_all():
     return jsondump(result)
 
 
-@route('/v2/lines/<lignesens>', 'GET')
+@route('/v1/lines/<lignesens>', 'GET')
 def lines_stations(lignesens):
     t = Timeo()
     result = {}
