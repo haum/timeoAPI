@@ -31,7 +31,7 @@ import timeoAPI.errors
 application = bottle.default_app()
 bottle.debug(mode=True)
 
-application.run(server='cherrypy')
+application.run(server='cherrypy', reloader=True)
 
 
 
