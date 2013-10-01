@@ -33,22 +33,31 @@ import timeoAPI.sources.meta as meta
 
 @route('/v1/stations/<code:int>/coords', 'GET')
 def station_coords(code):
-    result = meta.coords(code)
+    result  = {}
     result['type'] = "station_coords"
+    result['code'] = code
+    coords = meta.coords(code)
+    result['coords'] = [coords['lat'], coords['lon']]
     return jsondump(result)
 
 
 @route('/v1/stations/<code:int>/properties', 'GET')
 def station_properties(code):
-    result = meta.properties(code)
-    result['type'] = "station_properties"
+    result  = {}
+    result['type'] = "station_coords"
+    result['code'] = code
+    result['properties'] = meta.properties(code)
     return jsondump(result)
 
 @route('/v1/stations/<code:int>/all', 'GET')
+@route('/v1/stations/<code:int>', 'GET')
 def station_allmeta(code):
-    result = meta.properties(code)
-    for k,v in meta.coords(code).items(): result[k] = v
+    result = {}
     result['type'] = 'station_metadata'
+    result['code'] = code
+    coords = meta.coords(code)
+    result['coords'] = [coords['lat'], coords['lon']]
+    result['properties'] = meta.properties(code)
     return jsondump(result)
 
 @route('/v1/stations/<code:int>/<lignesens>', 'GET')
