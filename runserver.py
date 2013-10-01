@@ -30,7 +30,7 @@ import timeoAPI.views
 application = bottle.default_app()
 bottle.debug(mode=True)
 
-application.run()
+application.run(server='cherrypy')
 
 
 

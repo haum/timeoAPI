@@ -25,7 +25,6 @@
 
 DEBUG = True
 DATABASE_URI = "/home/matael/workspace/hackerspace/timeoAPI/timeoAPI/cache.db"
-
-
+DATABASE_URI = "/home/haum/timeoAPI/timeoAPI/cache.db"
 
 
