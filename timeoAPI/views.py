@@ -85,8 +85,23 @@ def lines_all():
 
 @route('/v1/lines/<lignesens>', 'GET')
 def lines_stations(lignesens):
+
+    # TODO: A améliorer
     t = Timeo()
     result = {}
     result['type'] = 'line_stations'
     result['stations'] = t.getall_arrets(lignesens)
+
+    coords = meta.coords(list(result['stations'].keys()))
+    print(coords)
+    if not set(result['stations'].keys()) == set(coords.keys()):
+        for i in set(result['stations'].keys())-set(coords.keys()):
+            print(i)
+            coords[i] = []
+    for code in result['stations'].keys():
+        result['stations'][code] = {
+            'coords': coords[code],
+            'name': result['stations'][code]
+        }
+
     return jsondump(result)
