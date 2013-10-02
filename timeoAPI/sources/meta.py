@@ -103,7 +103,7 @@ class MetaInitializer:
         """
 
         # prepare payload
-        insert_list = [(_['properties']['timeo'], _['geometry']['coordinates'][0], _['geometry']['coordinates'][1]) for
+        insert_list = [(_['properties']['timeo'], _['geometry']['coordinates'][1], _['geometry']['coordinates'][0]) for
                        _ in dataset['features']]
 
         conn = self._get_conn()
