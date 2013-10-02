@@ -27,9 +27,8 @@
 Utilities
 """
 
-import json
 import sqlite3
-
+from bottle import request
 from timeoAPI.settings import DATABASE_URI
 
 def jsondump(obj):
@@ -39,7 +38,10 @@ def jsondump(obj):
     obj -- object to serialize
     """
 
-    return json.dumps(obj, separators=(',',':'))
+    if (request.query.callback):
+        return "%s(%s)" % (request.query.callback, obj)
+    return obj
+
 
 def connect_db():
     return sqlite3.connect(DATABASE_URI)
