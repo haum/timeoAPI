@@ -101,40 +101,55 @@ Exemple de résultat :
 
 .. code:: javascript
 
+
     {
         "type": "line_stations",
         "stations": {
-            "13": "ACACIAS",
-            "167": "CHAUMARD",
-            "170": "VIEUX COLOMBIER",
-            "181": "CIM. ST GEORGES",
-            "203": "COLONEL RAYNAL",
-            "208": "COPENHAGUE",
-            "222": "SAINT JOSEPH",
-            "233": "DELAGENIERE",
-            "251": "EGLISE",
-            "257": "EPERON",
-            "276": "EUROPE",
-            "295": "FOLLERAY",
-            "350": "HALLES",
-            "362": "JACOBINS",
-            "391": "LA PAIX",
-            "403": "LE CLOS",
-            "451": "MAIRIE",
-            "47": "BANJAN",
-            "471": "MEDIATHEQUE",
-            "527": "PAGES",
-            "570": "P.L. JACQUES",
-            "578": "PONT DES TABACS",
-            "644": "RUE DU LOIR",
-            "692": "SAINT LAZARE",
-            "702": "ST VINCENT",
-            "710": "FERNAND TAVANO",
-            "942": "CROIX GEORGETTE",
-            "945": "MONTAIGU",
-            "948": "ST.GEORGES"
-        }
+            "186": {
+                "coords": [
+                    "48.0152676",
+                    "0.2259572"
+                ],
+                "name": "CLAIREFONTAINE"
+            },
+            "226": {
+                "coords": [
+                    "48.0075036",
+                    "0.2242764"
+                ],
+                "name": "CYGNES"
+            },
+            "23": {
+                "coords": [
+                    "48.0181341",
+                    "0.2306303"
+                ],
+                "name": "AGADIR"
+            },
+            "334": {
+                "coords": [
+                    "48.0075809",
+                    "0.2032289"
+                ],
+                "name": "GLADIATEURS"
+            },
+            "365": {
+                "coords": [
+                    "48.0080472",
+                    "0.2078255"
+                ],
+                "name": "JARDIN PLANTES"
+            },
+            "388": {
+                "coords": [
+                    "48.0060752",
+                    "0.2216532"
+                ],
+                "name": "LAMBERT"
+            },
+            // etc...
     }
+
 
 Arrêts
 ======
