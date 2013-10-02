@@ -105,3 +105,18 @@ def lines_stations(lignesens):
         }
 
     return jsondump(result)
+
+@route('/v1/lines/<lignesens>/stops', 'GET')
+def next_times(lignesens):
+    t = Timeo()
+    codes = t.getall_arrets(lignesens)
+
+    times = {}
+    for code in codes:
+        times[code] = t.get_arret(lignesens, code)
+
+    return jsondump({
+        "type": "multiple_next_stops",
+        "stops": times
+    })
+
