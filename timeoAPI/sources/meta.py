@@ -41,15 +41,27 @@ def coords(code):
     code -- station code
     """
 
+    columns = ['code', 'lat', 'lon']
+
     conn = connect_db()
     c = conn.cursor()
-    c.execute("SELECT * FROM metadata WHERE code=?", (str(code),))
-    res = c.fetchone()
-    if res:
-        return dict(zip(['code', 'lat', 'lon'], list(res)))
-    else:
-        return {}
 
+    if type(code)==list:
+        c.execute("SELECT * FROM metadata")
+        all = c.fetchall()
+        res = {_[0]:[_[1],_[2]] for _ in all if _[0] in code}
+        print(res)
+    else:
+
+        c.execute("SELECT * FROM metadata WHERE code=?", (str(code),))
+        res = c.fetchone()
+
+    if res and type(res)!=dict:
+        return dict(zip(columns, list(res)))
+    if not res:
+        return dict()
+    else:
+        return res
 
 def properties(code):
     """
