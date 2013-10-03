@@ -50,7 +50,6 @@ def coords(code):
         c.execute("SELECT * FROM metadata")
         all = c.fetchall()
         res = {_[0]:[_[1],_[2]] for _ in all if _[0] in code}
-        print(res)
     else:
 
         c.execute("SELECT * FROM metadata WHERE code=?", (str(code),))
