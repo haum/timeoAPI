@@ -27,11 +27,14 @@ import bottle
 
 import timeoAPI.views
 import timeoAPI.errors
+from timeoAPI.middleware import StripPathMiddleware as SPM
 
-application = bottle.default_app()
+app = bottle.default_app()
+application = SPM(app)
+
 # bottle.debug(mode=True)
 
-application.run(server='cherrypy', reloader=True)
+bottle.run(app= application, server='cherrypy', reloader=True)
 
 
 
