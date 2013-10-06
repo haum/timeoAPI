@@ -1,0 +1,10 @@
+TODO List pour la version 2
+===========================
+
+- améliorer la mise en cache des données fixes pour les arrets
+- dissocier la liste de :
+
+  - toutes les lignes,
+  - lignes actives au moment de la requete.
+
+
