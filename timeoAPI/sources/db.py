@@ -42,6 +42,7 @@ class MongoDBInitializer:
             self.stations = self.db['stations']
         else:
             self.stations = self.db['stations']
+
         if not "lines" in self.db.collection_names():
             log.info("Collection 'lines' not found. Creating it...")
             self.db.create_collection("lines")
