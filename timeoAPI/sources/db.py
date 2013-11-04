@@ -84,28 +84,30 @@ class MongoDBInitializer:
         self.timeodata['lines'] = t.get_lignes()
         self.timeodata['stations'] = {}
 
-        for l in self.timeodata['lines'].values():
-            arrets_ligne = t.getall_arrets(l)
-            for code,name in arrets_ligne.items():
-                self.stations.insert({
-                    "code": code,
-                    "name": name
-                })
-
         # turn lines data (list) to trimmed data : list of dict
         data = {v:k for k,v in self.timeodata['lines'].items()}
+
+        # for each line
         for k,v in data.items():
+            # get id and direction
             idx,sens = k.split('_')
+            # and name of terminus
             name = v.split(' > ')[-1]
+
+            # if a name is provided
             if name != '':
-                self.lines.insert({idx : {sens: name}})
 
+                # compute a list of all timeo code
+                # this line is passing by and
+                # add corresponding stops to the DB
+                stops = []
+                arrets_ligne = t.getall_arrets(k)
+                for code,n in arrets_ligne.items():
+                    self.stations.save({
+                        "code": code,
+                        "name": n
+                    })
+                    stops.append(code)
 
-    def add_names(self):
-        """
-        This function should run only on full service hours.
-        It Will look in every line and find all stations. Then, it will grab
-        stations name and add them to the DB
-        """
-
-        pass # TODO : write this function or delete boilerplate if useless
+                # then add line to DB
+                self.lines.save({idx : {sens: {'name': name, 'stops': stops}}})
