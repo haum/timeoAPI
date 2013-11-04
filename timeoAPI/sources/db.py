@@ -45,9 +45,13 @@ class MongoDBInitializer:
             log.info("Collection 'stations' not found. Creating it...")
             self.db.create_collection("stations")
             self.stations = self.db['stations']
+        else:
+            self.stations = self.db['stations']
         if not "lines" in self.db.collection_names():
             log.info("Collection 'lines' not found. Creating it...")
             self.db.create_collection("lines")
+            self.lines = self.db['lines']
+        else:
             self.lines = self.db['lines']
 
     def geo_from_file(self, filename):
@@ -81,7 +85,7 @@ class MongoDBInitializer:
 
         t = Timeo()
         self.timeodata = {}
-        self.timeodata['lines'] = t.get_lines()
+        self.timeodata['lines'] = t.get_lignes()
         self.timeodata['stations'] = {}
 
         for l in self.timeodata['lines'].values():
@@ -91,6 +95,14 @@ class MongoDBInitializer:
                     "code": code,
                     "name": name
                 })
+
+        # turn lines data (list) to trimmed data : list of dict
+        data = {v:k for k,v in self.timeodata['lines'].items()}
+        for k,v in data.items():
+            idx,sens = k.split('_')
+            name = v.split(' > ')[-1]
+            if name != '':
+                self.lines.insert({idx : {sens: name}})
 
 
     def add_names(self):
